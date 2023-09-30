@@ -14,6 +14,8 @@ router.get('/', taskControllers_1.getAllTasksController);
 router.post('/add/', taskControllers_1.addTaskController);
 // Rota que mostra task com base no id
 router.get('/list/:id', taskControllers_1.getTaskByIdController);
+// Rota que mostra as tasks com base no clima atual
+router.get('/weather/', taskControllers_1.getTaskByWeatherController);
 // Rota que atualiza uma task
 router.put('/update/:id', taskControllers_1.updateTaskController);
 // Rota que deleta uma task

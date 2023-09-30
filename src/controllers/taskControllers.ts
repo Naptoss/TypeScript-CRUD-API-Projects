@@ -6,10 +6,29 @@ import {
     getTaskById, 
     updateTask, 
     deleteTask, 
+    getTaskByWeather, 
+    WeatherChoices 
 } from '../models/taskModels';
 
 // Importa o Request e Response para podermos manipular a Api
 import { Request, Response } from 'express';
+
+// Importa a função que pega o clima da cidade escolhida
+import getWeatherData from '../utils/weatherUtils'
+
+// Necessário refatorar as funções posteriormente e fazer uma melhor filtragem
+// dos dados que serão recebidos; Tratar os eventuais erros.
+
+export async function getTaskByWeatherController(req: Request, res: Response): Promise<void> {
+    const current_weather: WeatherChoices = await getWeatherData("Maceió");
+    const tasks = getTaskByWeather(current_weather);
+
+    if (tasks){
+        res.json({tasks: tasks, weather: current_weather}); 
+    } else {
+        res.status(404).json({message: 'Por que essa bomba não atualiza'});
+    }
+}
 
 export function getAllTasksController(req: Request, res: Response): void {
     const tasks = getAllTasks();

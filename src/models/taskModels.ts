@@ -57,8 +57,17 @@ export function addTask(task: Task): Task {
     tasks.push(task);
     return task;
 }
+
 export function getTaskById(id: number): Task | undefined {
     return tasks.find((task) => task.id === id);
+}
+
+export function getTaskByWeather(weather: WeatherChoices): Task[] {
+    if (weather){
+        const filtered_tasks = tasks.filter((task) => task.weather === weather);
+        return filtered_tasks;
+    }
+    return tasks;
 }
 
 export function updateTask(task_updated: Task, id: number): Task | undefined {

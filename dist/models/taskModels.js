@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteTask = exports.updateTask = exports.getTaskById = exports.addTask = exports.getAllTasks = void 0;
+exports.deleteTask = exports.updateTask = exports.getTaskByWeather = exports.getTaskById = exports.addTask = exports.getAllTasks = void 0;
 // Exemplos de objetos para teste da Api
 const tasks = [
     {
@@ -47,6 +47,14 @@ function getTaskById(id) {
     return tasks.find((task) => task.id === id);
 }
 exports.getTaskById = getTaskById;
+function getTaskByWeather(weather) {
+    if (weather) {
+        const filtered_tasks = tasks.filter((task) => task.weather === weather);
+        return filtered_tasks;
+    }
+    return tasks;
+}
+exports.getTaskByWeather = getTaskByWeather;
 function updateTask(task_updated, id) {
     const index = tasks.findIndex((task) => task.id === id);
     if (index !== -1) {

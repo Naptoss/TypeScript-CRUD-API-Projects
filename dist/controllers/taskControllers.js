@@ -1,8 +1,26 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteTaskController = exports.updateTaskController = exports.getTaskByIdController = exports.addTaskController = exports.getAllTasksController = void 0;
+exports.deleteTaskController = exports.updateTaskController = exports.getTaskByIdController = exports.addTaskController = exports.getAllTasksController = exports.getTaskByWeatherController = void 0;
 // Importa as funções do Models
 const taskModels_1 = require("../models/taskModels");
+// Importa a função que pega o clima da cidade escolhida
+const weatherUtils_1 = __importDefault(require("../utils/weatherUtils"));
+// Necessário refatorar as funções posteriormente e fazer uma melhor filtragem
+// dos dados que serão recebidos; Tratar os eventuais erros.
+async function getTaskByWeatherController(req, res) {
+    const current_weather = await (0, weatherUtils_1.default)("Maceió");
+    const tasks = (0, taskModels_1.getTaskByWeather)(current_weather);
+    if (tasks) {
+        res.json({ tasks: tasks, weather: current_weather });
+    }
+    else {
+        res.status(404).json({ message: 'Por que essa bomba não atualiza' });
+    }
+}
+exports.getTaskByWeatherController = getTaskByWeatherController;
 function getAllTasksController(req, res) {
     const tasks = (0, taskModels_1.getAllTasks)();
     res.json(tasks);
