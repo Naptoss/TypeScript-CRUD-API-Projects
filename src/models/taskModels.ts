@@ -57,3 +57,26 @@ export function addTask(task: Task): Task {
     tasks.push(task);
     return task;
 }
+export function getTaskById(id: number): Task | undefined {
+    return tasks.find((task) => task.id === id);
+}
+
+export function updateTask(task_updated: Task, id: number): Task | undefined {
+    const index = tasks.findIndex((task) => task.id === id);
+    if (index !== -1){
+        tasks[id] = { ...task_updated, id: id };
+        return tasks[id];
+    } else {
+        return undefined;
+    }
+}
+
+export function deleteTask(id: number): Task | undefined {
+    const index = tasks.findIndex((task) => task.id === id);
+    if (index !== -1){
+        const task_deleted = tasks.splice(index, 1)[0];
+        return task_deleted;
+    } else {
+        return undefined;
+    }
+}

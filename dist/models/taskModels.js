@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.addTask = exports.getAllTasks = void 0;
+exports.deleteTask = exports.updateTask = exports.getTaskById = exports.addTask = exports.getAllTasks = void 0;
 // Exemplos de objetos para teste da Api
 const tasks = [
     {
@@ -43,3 +43,29 @@ function addTask(task) {
     return task;
 }
 exports.addTask = addTask;
+function getTaskById(id) {
+    return tasks.find((task) => task.id === id);
+}
+exports.getTaskById = getTaskById;
+function updateTask(task_updated, id) {
+    const index = tasks.findIndex((task) => task.id === id);
+    if (index !== -1) {
+        tasks[id] = { ...task_updated, id: id };
+        return tasks[id];
+    }
+    else {
+        return undefined;
+    }
+}
+exports.updateTask = updateTask;
+function deleteTask(id) {
+    const index = tasks.findIndex((task) => task.id === id);
+    if (index !== -1) {
+        const task_deleted = tasks.splice(index, 1)[0];
+        return task_deleted;
+    }
+    else {
+        return undefined;
+    }
+}
+exports.deleteTask = deleteTask;
