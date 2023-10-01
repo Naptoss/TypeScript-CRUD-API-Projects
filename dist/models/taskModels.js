@@ -58,8 +58,8 @@ exports.getTaskByWeather = getTaskByWeather;
 function updateTask(task_updated, id) {
     const index = tasks.findIndex((task) => task.id === id);
     if (index !== -1) {
-        tasks[id] = { ...task_updated, id: id };
-        return tasks[id];
+        tasks[index] = { ...task_updated, id: id };
+        return tasks[index];
     }
     else {
         return undefined;
