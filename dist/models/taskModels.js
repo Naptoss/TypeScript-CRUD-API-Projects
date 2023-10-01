@@ -77,3 +77,4 @@ function deleteTask(id) {
     }
 }
 exports.deleteTask = deleteTask;
+exports.default = tasks;

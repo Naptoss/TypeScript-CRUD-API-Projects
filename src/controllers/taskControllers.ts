@@ -10,6 +10,8 @@ import {
     WeatherChoices 
 } from '../models/taskModels';
 
+import tasks from '../models/taskModels';
+
 // Importa o Request e Response para podermos manipular a Api
 import { Request, Response } from 'express';
 
@@ -20,25 +22,52 @@ import getWeatherData from '../utils/weatherUtils'
 // dos dados que serão recebidos; Tratar os eventuais erros.
 
 export async function getTaskByWeatherController(req: Request, res: Response): Promise<void> {
-    const current_weather: WeatherChoices = await getWeatherData("Maceió");
+    const current_weather: WeatherChoices = await getWeatherData("Maceió"); // Cidade utilizada de exemplo por causa do clima!
     const tasks = getTaskByWeather(current_weather);
 
-    if (tasks){
-        res.json({tasks: tasks, weather: current_weather}); 
+    if (tasks.length !== 0){
+        res.json({weather: current_weather, tasks: tasks}); 
     } else {
-        res.status(404).json({message: 'Por que essa bomba não atualiza'});
+        res.status(404).json({weather: current_weather, message: 'There is no tasks for the actual weather'});
     }
 }
 
 export function getAllTasksController(req: Request, res: Response): void {
     const tasks = getAllTasks();
-    res.json(tasks);
+
+    if (tasks.length !== 0){
+        res.json({tasks: tasks}); 
+    } else {
+        res.status(404).json({message: 'There is no tasks'});
+    }
 }
 
 export function addTaskController(req: Request, res: Response): void {
-    const new_task = req.body;
-    const task = addTask(new_task);
-    res.status(201).json(task);
+    const { name, description, is_complete, weather} = req.body;
+
+    const array_length = tasks.length;
+    const task = tasks[array_length-1]
+    const task_id = (task) ? task.id+1 : 1;
+
+    if (!name || !description || !weather || is_complete === undefined) {
+        res.status(400).json({ message: 'Task could not be added' });
+    } else {
+        const new_task: Task = {
+            id: task_id,
+            name: name,
+            description: description,
+            is_complete: is_complete,
+            weather: weather
+        };
+        
+        const task = addTask(new_task);
+        
+        if (task){
+            res.status(201).json({task: task}); 
+        } else {
+            res.status(400).json({message: 'Task could not be added'});
+        }
+    }
 }
 
 export function getTaskByIdController(req: Request, res: Response): void {
@@ -56,13 +85,25 @@ export function getTaskByIdController(req: Request, res: Response): void {
 export function updateTaskController(req: Request, res: Response): void {
     const { id } = req.params;
     const task_id = parseInt(id, 10);
-    const task: Task = req.body;
+    const { name, description, is_complete, weather} = req.body;
 
-    const task_updated = updateTask(task, task_id);
-    if (task_updated){
-        res.json(task_updated);
+    if (!name || !description || !weather || is_complete === undefined) {
+        res.status(400).json({ message: 'Task could not be updated' });
     } else {
-        res.status(404).json({message: 'Task not found'});
+        const task: Task = {
+            id: task_id,
+            name: name,
+            description: description,
+            is_complete: is_complete,
+            weather: weather
+        };
+    
+        const task_updated = updateTask(task, task_id);
+        if (task_updated){
+            res.json(task_updated);
+        } else {
+            res.status(404).json({message: 'Task not found'});
+        }
     }
 }
 

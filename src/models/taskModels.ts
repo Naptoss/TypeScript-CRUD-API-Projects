@@ -89,3 +89,5 @@ export function deleteTask(id: number): Task | undefined {
         return undefined;
     }
 }
+
+export default tasks;
