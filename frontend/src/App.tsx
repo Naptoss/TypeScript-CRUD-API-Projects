@@ -6,7 +6,6 @@ import Content from './components/Content';
 function App() {
   return (
     <div className="container">
-      <SideBar />
       <main>
         <Forms />
         <Content />

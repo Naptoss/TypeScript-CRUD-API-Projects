@@ -9,7 +9,6 @@ export default function Content(){
                     <tr>
                         <th>Nome</th>
                         <th>Status</th>
-                        <th>Tempo</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
@@ -17,7 +16,16 @@ export default function Content(){
                     <tr>
                         <td>Varrer</td>
                         <td><div className="ativo">Completo</div></td>
-                        <td>Chuvoso</td>
+                        <td>
+                            <div className="actions">
+                                <img src={deleteIcon} alt=""/>
+                                <img src={editIcon} alt=""/>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Estudar jeofton texto gigante</td>
+                        <td className="desativado">Incompleto</td>
                         <td>
                             <div className="actions">
                                 <img src={deleteIcon} alt=""/>

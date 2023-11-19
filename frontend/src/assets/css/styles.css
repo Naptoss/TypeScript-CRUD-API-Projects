@@ -75,7 +75,7 @@ aside {
 
 main {
     display: flex;
-    margin: 5px 5% 5px 25%;
+    margin: 10px 5% 10px 5%;
     flex-direction: column;
     width: 100%;
 }
@@ -173,24 +173,10 @@ th, td {
 }
 
 .ativo {
-    width: 50%;
-    height: 25px;
-    border-radius: 5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #133f36;
     color: #3ab15d;
 }
 
 .desativado {
-    width: 50%;
-    height: 25px;
-    border-radius: 5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #39212a;
     color: #bf3e4b;
 }
 
@@ -208,7 +194,7 @@ th, td {
     width: auto;
 }
 
-.add-tasks button{
+.add-tasks .add-button{
     cursor: pointer;
     background-color: #111828;
     flex: 1;
@@ -222,6 +208,73 @@ th, td {
     padding: 10px 20px;
 }
 
-.add-tasks button:hover {
+.add-tasks .add-button:hover {
     border: 1px solid #6300ff;
+}
+
+.background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.521);
+    z-index: 3;
+}
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #111828;
+    color: #ffffff;
+    padding: 2rem;
+    border-radius: 8px;
+}
+
+.btn-exit {
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background-color: #6300ff;
+    color: #ffffff;
+    border: none;
+    border-radius: 100%;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.add-form-container form{
+    display: flex;
+    flex-direction: column;
+}
+
+.add-form-container textarea{
+    resize: none;
+    width: 500px;
+    height: 150px;
+}
+
+.add-form-container input {
+    width: 500px;
+}
+
+.add-form-container input, label, textarea{
+    margin-bottom: 10px;
+}
+
+.add-form-container button{
+    cursor: pointer;
+    height: 40px;
+    background-color: #6300ff;
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    font-weight: 700;
 }
